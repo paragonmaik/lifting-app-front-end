@@ -1,7 +1,7 @@
 import ExerciseCard from './ExerciseCard';
 import { Workout } from 'types';
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Collapse } from 'react-bootstrap';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
@@ -16,15 +16,21 @@ export default function WorkoutCard(workout: Workout) {
         <span>Duration: {workout.durationMins} minutes</span>
         <div></div>
       </div>
-      <Button onClick={() => setIsActive(!isActive)}>
+      <Button
+        onClick={() => setIsActive(!isActive)}
+        aria-controls={`workout-card-${workout.id}`}
+        aria-expanded={isActive}
+      >
         {`${isActive ? 'Hide' : 'Show'} Exercises`}
       </Button>
-      <div className={`${isActive ? 'show' : 'collapse'}`}>
-        {workout.exercises.map((exercise) => (
-          <ExerciseCard key={exercise.id} {...exercise} />
-        ))}
-        <Button>Add Exercise</Button>
-      </div>
+      <Collapse in={isActive}>
+        <div id={`workout-card-${workout.id}`}>
+          {workout.exercises.map((exercise) => (
+            <ExerciseCard key={exercise.id} {...exercise} />
+          ))}
+          <Button>Add Exercise</Button>
+        </div>
+      </Collapse>
     </div>
   );
 }
