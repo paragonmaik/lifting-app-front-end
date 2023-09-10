@@ -1,5 +1,7 @@
+import EditExerciseModal from './EditExerciseModal';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 import { Exercise } from 'types';
-import { Button, Table } from 'react-bootstrap';
 
 export default function ExerciseCard(exercise: Exercise) {
   return (
@@ -30,7 +32,7 @@ export default function ExerciseCard(exercise: Exercise) {
       </Table>
       <div className="d-flex justify-content-around">
         <Button>Start Timer</Button>
-        <Button>Edit Exercise</Button>
+        <EditExerciseModal {...exercise} />
       </div>
     </div>
   );
