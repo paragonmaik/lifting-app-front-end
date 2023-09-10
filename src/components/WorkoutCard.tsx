@@ -1,7 +1,10 @@
 import ExerciseCard from './ExerciseCard';
+import EditWorkoutModal from './EditWorkoutModal';
+import AddExerciseModal from './AddExerciseModal';
+import Button from 'react-bootstrap/Button';
+import Collapse from 'react-bootstrap/Collapse';
 import { Workout } from 'types';
 import { useState } from 'react';
-import { Button, Collapse } from 'react-bootstrap';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
@@ -10,7 +13,7 @@ export default function WorkoutCard(workout: Workout) {
     <div className="card p-2 mt-1 mb-1 border border-primary">
       <div className="d-flex justify-content-around">
         <h4>{workout.name}</h4>
-        <Button>Edit Workout</Button>
+        <EditWorkoutModal {...workout} />
       </div>
       <div className="my-3 w-100 d-flex justify-content-around">
         <span>Duration: {workout.durationMins} minutes</span>
@@ -28,7 +31,7 @@ export default function WorkoutCard(workout: Workout) {
           {workout.exercises.map((exercise) => (
             <ExerciseCard key={exercise.id} {...exercise} />
           ))}
-          <Button>Add Exercise</Button>
+          <AddExerciseModal />
         </div>
       </Collapse>
     </div>
