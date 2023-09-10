@@ -1,22 +1,20 @@
 import WorkoutCard from './WorkoutCard';
+import EditProgramForm from './EditProgramModal';
+import AddWorkoutModal from './AddWorkoutModal';
 import { Program } from 'types';
-import { Button } from 'react-bootstrap';
 
 export default function ProgramCard(program: Program) {
   return (
     <div className="container">
       <section className="row me-100">
-        <div className="p-2 mt-1 mb-1 ">
-          <div className="d-flex justify-content-around">
+        <div className="p-2 mt-1 mb-1">
+          <div className="my-1 d-flex justify-content-around align-items-center">
             <h1>{program.name}</h1>
-            <div className="my-auto">
-              <Button className="mx-1">Add Workout</Button>
-              <Button className="mx-1">Edit Program</Button>
-            </div>
+            <EditProgramForm {...program} />
           </div>
-          <div className="w-100 d-flex justify-content-around">
+          <div className="my-1 w-100 d-flex justify-content-around align-items-center">
             <span>Duration: {program.durationWeeks} weeks</span>
-            <div></div>
+            <AddWorkoutModal />
           </div>
         </div>
         {program.workouts.map((workout) => (
