@@ -1,5 +1,5 @@
 import WorkoutCard from './WorkoutCard';
-import EditProgramForm from './EditProgramModal';
+import EditProgramModal from './EditProgramModal';
 import AddWorkoutModal from './AddWorkoutModal';
 import { Program } from 'types';
 
@@ -10,7 +10,7 @@ export default function ProgramCard(program: Program) {
         <div className="p-2 mt-1 mb-1">
           <div className="my-1 d-flex justify-content-around align-items-center">
             <h1>{program.name}</h1>
-            <EditProgramForm {...program} />
+            <EditProgramModal {...program} />
           </div>
           <div className="my-1 w-100 d-flex justify-content-around align-items-center">
             <span>Duration: {program.durationWeeks} weeks</span>
