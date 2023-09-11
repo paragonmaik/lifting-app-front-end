@@ -22,7 +22,7 @@ export default function AddExerciseModal({ workoutId }: { workoutId: number }) {
   function handleAddExercise(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { exerciseName, instructions, load, goal, restPeriod } =
+    const { exerciseName, instructions, load, goal, restSeconds } =
       e.target as typeof e.currentTarget;
 
     const data = {
@@ -30,7 +30,7 @@ export default function AddExerciseModal({ workoutId }: { workoutId: number }) {
       name: exerciseName.value,
       instructinos: instructions.value,
       load: load.value,
-      restPeriod: restPeriod.value,
+      restSeconds: restSeconds.value,
     };
 
     mutate({
@@ -71,7 +71,7 @@ export default function AddExerciseModal({ workoutId }: { workoutId: number }) {
               <Form.Label>Exercise Goal</Form.Label>
               <Form.Control type="text" placeholder="Enter goal" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="restPeriod">
+            <Form.Group className="mb-3" controlId="restSeconds">
               <Form.Label>Exercise Rest Period</Form.Label>
               <Form.Control
                 type="number"
