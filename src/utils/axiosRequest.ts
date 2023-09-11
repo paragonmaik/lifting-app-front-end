@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { Method } from 'axios';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 export type RequestBody = {
   url: string;
-  method: 'get' | 'post' | 'patch' | 'put' | 'delete';
+  method: Method;
   data?: object;
   headers?: object;
 };
