@@ -7,9 +7,16 @@ import { useContext } from 'react';
 import { Context } from 'context/Context';
 
 export default function Home() {
-  const { data: programs, isError, isLoading, error } = useProgram();
+  const {
+    data: programs,
+    isError,
+    isLoading,
+    error,
+    isFetching,
+  } = useProgram();
   const { curProgramPos } = useContext(Context);
 
+  if (isFetching) console.log('fetching');
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
