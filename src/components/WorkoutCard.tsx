@@ -31,7 +31,7 @@ export default function WorkoutCard(workout: Workout) {
           {workout.exercises.map((exercise) => (
             <ExerciseCard key={exercise.id} {...exercise} />
           ))}
-          <AddExerciseModal />
+          <AddExerciseModal workoutId={workout.id} />
         </div>
       </Collapse>
     </div>

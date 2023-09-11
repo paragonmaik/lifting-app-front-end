@@ -4,46 +4,45 @@ import BaseModal from './ui/BaseModal';
 import { FormEvent, useState } from 'react';
 import { axiosRequest } from 'utils/axiosRequest';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
-export default function AddExerciseModal() {
-  const queryClient = useQueryClient();
+export default function AddExerciseModal({ workoutId }: { workoutId: number }) {
+  const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
+  const queryClient = useQueryClient();
 
-  const createExerciseMutation = useMutation({
+  const { mutate } = useMutation({
     mutationFn: axiosRequest,
     onSuccess: () => {
       queryClient.invalidateQueries(['programs']);
-
       setShow(!show);
     },
   });
 
   function handleAddExercise(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const { exerciseName, instructions, load, goal, restPeriod } =
       e.target as typeof e.currentTarget;
 
-    goal.value = 'STRENGTH';
-    exerciseName.value;
-    instructions.value;
-    load.value;
-    restPeriod.value;
+    const data = {
+      goal: (goal.value = 'STRENGTH'),
+      name: exerciseName.value,
+      instructinos: instructions.value,
+      load: load.value,
+      restPeriod: restPeriod.value,
+    };
 
-    createExerciseMutation.mutate({
+    mutate({
       method: 'post',
-      url: '/api/exercises/1',
+      url: `/api/exercises/${workoutId}`,
       headers: {
-        Authorization: '',
+        Authorization: token,
       },
-      data: {
-        name: exerciseName.value,
-        instructions: instructions.value,
-        load: load.value,
-        goal: goal.value,
-        restPeriod: restPeriod.value,
-      },
+      data,
     });
   }
+
   return (
     <>
       <Button variant="primary" onClick={() => setShow(!show)}>
