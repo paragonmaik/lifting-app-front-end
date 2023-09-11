@@ -51,8 +51,6 @@ export default function EditExerciseModal({
       restSeconds: restSeconds.value,
     };
 
-    console.log(data);
-
     mutate({
       method: 'put',
       url: '/api/exercises',
