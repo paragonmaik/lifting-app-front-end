@@ -22,7 +22,11 @@ export default function ExerciseCard(exercise: Exercise) {
             <td>
               <h6>{exercise.name}</h6>
             </td>
-            <td>{exercise.instructions}</td>
+            <td>
+              {exercise.instructions
+                ? exercise.instructions
+                : 'No instructions.'}
+            </td>
             <td>{exercise.load}kg</td>
             <td>{exercise.goal}</td>
             <td>{exercise.restSeconds} seconds</td>
