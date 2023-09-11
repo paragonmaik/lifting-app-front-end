@@ -17,7 +17,7 @@ export default function useProgram() {
         },
       });
 
-      return res.data as Program[];
+      return res.data;
     },
   });
 }
