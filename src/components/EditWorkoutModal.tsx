@@ -1,10 +1,10 @@
-import { FormEvent, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import BaseModal from './ui/BaseModal';
 import { useLocalStorage } from 'hooks/useLocalStorage';
+import { FormEvent, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
+import BaseWorkoutForm from './ui/BaseWorkoutForm';
+import Button from 'react-bootstrap/Button';
+import BaseModal from './ui/BaseModal';
 
 type WorkoutDTO = {
   id?: number;
@@ -13,12 +13,7 @@ type WorkoutDTO = {
   durationMins: number;
 };
 
-export default function EditWorkoutModal({
-  id,
-  name,
-  description,
-  durationMins,
-}: WorkoutDTO) {
+export default function EditWorkoutModal(workoutDTO: WorkoutDTO) {
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
   const queryClient = useQueryClient();
@@ -38,7 +33,7 @@ export default function EditWorkoutModal({
       e.target as typeof e.currentTarget;
 
     const data = {
-      id,
+      id: workoutDTO.id,
       name: workoutName.value,
       description: description.value,
       durationMins: durationMins.value,
@@ -64,45 +59,12 @@ export default function EditWorkoutModal({
         show={show}
         setShow={setShow}
         children={
-          <Form onSubmit={handleEditWorkout}>
-            <Form.Group className="mb-3" controlId="workoutName">
-              <Form.Label>Workout Name</Form.Label>
-              <Form.Control
-                defaultValue={name}
-                type="text"
-                placeholder="Enter name"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="description">
-              <Form.Label>Workout description</Form.Label>
-              <Form.Control
-                defaultValue={description}
-                type="text"
-                placeholder="Enter description"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="durationMins">
-              <Form.Label>Workout duration</Form.Label>
-              <Form.Control
-                defaultValue={durationMins}
-                type="number"
-                placeholder="Enter duration (in Mins)"
-              />
-            </Form.Group>
-            <br />
-            <div className="d-flex justify-content-end">
-              <Button
-                onClick={() => setShow(!show)}
-                className="mx-1"
-                variant="secondary"
-              >
-                Cancel
-              </Button>
-              <Button className="mx-1" variant="primary" type="submit">
-                Confirm
-              </Button>
-            </div>
-          </Form>
+          <BaseWorkoutForm
+            handleWorkout={handleEditWorkout}
+            setShow={setShow}
+            show={show}
+            workoutDTO={workoutDTO}
+          />
         }
       />
     </>
