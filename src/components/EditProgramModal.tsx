@@ -1,24 +1,19 @@
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import BaseModal from './ui/BaseModal';
 import { FormEvent, useState } from 'react';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
+import BaseProgramForm from './ui/BaseProgramForm';
 
 type ProgramDTO = {
-  id?: number;
+  id: number;
   name: string;
   description: string;
   durationWeeks: number;
 };
 
-export default function EditProgramModal({
-  id,
-  name,
-  description,
-  durationWeeks,
-}: ProgramDTO) {
+export default function EditProgramModal(programDTO: ProgramDTO) {
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
   const queryClient = useQueryClient();
@@ -38,7 +33,7 @@ export default function EditProgramModal({
       e.target as typeof e.currentTarget;
 
     const data = {
-      id,
+      id: programDTO.id,
       name: programName.value,
       description: description.value,
       durationWeeks: durationWeeks.value,
@@ -64,45 +59,12 @@ export default function EditProgramModal({
         show={show}
         setShow={setShow}
         children={
-          <Form onSubmit={handleEditProgram}>
-            <Form.Group className="mb-3" controlId="programName">
-              <Form.Label>Program Name</Form.Label>
-              <Form.Control
-                defaultValue={name}
-                type="text"
-                placeholder="Enter name"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="description">
-              <Form.Label>Program description</Form.Label>
-              <Form.Control
-                defaultValue={description}
-                type="text"
-                placeholder="Enter description"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="durationWeeks">
-              <Form.Label>Program duration</Form.Label>
-              <Form.Control
-                defaultValue={durationWeeks}
-                type="number"
-                placeholder="Enter duration (in weeks)"
-              />
-            </Form.Group>
-            <br />
-            <div className="d-flex justify-content-end">
-              <Button
-                onClick={() => setShow(!show)}
-                className="mx-1"
-                variant="secondary"
-              >
-                Cancel
-              </Button>
-              <Button className="mx-1" variant="primary" type="submit">
-                Confirm
-              </Button>
-            </div>
-          </Form>
+          <BaseProgramForm
+            handleProgram={handleEditProgram}
+            setShow={setShow}
+            show={show}
+            programDTO={programDTO}
+          />
         }
       />
     </>
