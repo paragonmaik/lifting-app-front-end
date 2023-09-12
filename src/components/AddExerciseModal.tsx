@@ -26,7 +26,7 @@ export default function AddExerciseModal({ workoutId }: { workoutId: number }) {
       e.target as typeof e.currentTarget;
 
     const data = {
-      goal: (goal.value = 'STRENGTH'),
+      goal: goal.value,
       name: exerciseName.value,
       instructinos: instructions.value,
       load: load.value,

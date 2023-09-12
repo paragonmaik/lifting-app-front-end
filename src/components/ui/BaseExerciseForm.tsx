@@ -53,11 +53,10 @@ export default function BaseExerciseForm({
       </Form.Group>
       <Form.Group className="mb-3" controlId="goal">
         <Form.Label>Exercise Goal</Form.Label>
-        <Form.Control
-          defaultValue={exerciseDTO?.goal}
-          type="text"
-          placeholder="Enter goal"
-        />
+        <Form.Select defaultValue={exerciseDTO?.goal} aria-label="">
+          <option value="STRENGTH">Strength</option>
+          <option value="HYPERTROPHY">Hypertrophy</option>
+        </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3" controlId="restSeconds">
         <Form.Label>Exercise Rest Period</Form.Label>
