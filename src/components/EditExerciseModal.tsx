@@ -39,7 +39,7 @@ export default function EditExerciseModal(exerciseDTO: ExerciseDTO) {
       id: exerciseDTO.id,
       goal: goal.value,
       name: exerciseName.value,
-      instructinos: instructions.value,
+      instructions: instructions.value,
       load: load.value,
       restSeconds: restSeconds.value,
     };
