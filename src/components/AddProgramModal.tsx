@@ -29,7 +29,7 @@ export default function AddProgramModal() {
     const data = {
       name: programName.value,
       description: description.value,
-      durationMins: durationWeeks.value,
+      durationWeeks: durationWeeks.value,
     };
 
     mutate({
@@ -41,6 +41,7 @@ export default function AddProgramModal() {
       data,
     });
   }
+
   return (
     <>
       <MenuItem onClick={() => setShow(!show)}>Add Program</MenuItem>

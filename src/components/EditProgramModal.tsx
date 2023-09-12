@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import BaseModal from './ui/BaseModal';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosRequest } from 'utils/axiosRequest';
 
 type ProgramDTO = {
   id?: number;
@@ -16,7 +19,40 @@ export default function EditProgramModal({
   description,
   durationWeeks,
 }: ProgramDTO) {
+  const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
+  const queryClient = useQueryClient();
+  console.log(id);
+  const { mutate } = useMutation({
+    mutationFn: axiosRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['programs']);
+      setShow(!show);
+    },
+  });
+
+  function handleEditProgram(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const { programName, description, durationWeeks } =
+      e.target as typeof e.currentTarget;
+
+    const data = {
+      id,
+      name: programName.value,
+      description: description.value,
+      durationWeeks: durationWeeks.value,
+    };
+
+    mutate({
+      method: 'put',
+      url: '/api/programs',
+      headers: {
+        Authorization: token,
+      },
+      data,
+    });
+  }
 
   return (
     <>
@@ -28,8 +64,8 @@ export default function EditProgramModal({
         show={show}
         setShow={setShow}
         children={
-          <Form>
-            <Form.Group className="mb-3" controlId="">
+          <Form onSubmit={handleEditProgram}>
+            <Form.Group className="mb-3" controlId="programName">
               <Form.Label>Program Name</Form.Label>
               <Form.Control
                 defaultValue={name}
@@ -37,7 +73,7 @@ export default function EditProgramModal({
                 placeholder="Enter name"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="aa">
+            <Form.Group className="mb-3" controlId="description">
               <Form.Label>Program description</Form.Label>
               <Form.Control
                 defaultValue={description}
@@ -45,7 +81,7 @@ export default function EditProgramModal({
                 placeholder="Enter description"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
+            <Form.Group className="mb-3" controlId="durationWeeks">
               <Form.Label>Program duration</Form.Label>
               <Form.Control
                 defaultValue={durationWeeks}
