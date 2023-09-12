@@ -1,7 +1,7 @@
-import { FormEvent, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import BaseModal from './ui/BaseModal';
+import { FormEvent, useState } from 'react';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
@@ -22,7 +22,7 @@ export default function EditProgramModal({
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
   const queryClient = useQueryClient();
-  console.log(id);
+
   const { mutate } = useMutation({
     mutationFn: axiosRequest,
     onSuccess: () => {
