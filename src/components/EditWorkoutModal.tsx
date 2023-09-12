@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import BaseModal from './ui/BaseModal';
+import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosRequest } from 'utils/axiosRequest';
 
 type WorkoutDTO = {
   id?: number;
@@ -16,7 +19,40 @@ export default function EditWorkoutModal({
   description,
   durationMins,
 }: WorkoutDTO) {
+  const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: axiosRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['programs']);
+      setShow(!show);
+    },
+  });
+
+  function handleEditWorkout(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const { workoutName, description, durationMins } =
+      e.target as typeof e.currentTarget;
+
+    const data = {
+      id,
+      name: workoutName.value,
+      description: description.value,
+      durationMins: durationMins.value,
+    };
+
+    mutate({
+      method: 'put',
+      url: '/api/workouts',
+      headers: {
+        Authorization: token,
+      },
+      data,
+    });
+  }
 
   return (
     <>
@@ -28,8 +64,8 @@ export default function EditWorkoutModal({
         show={show}
         setShow={setShow}
         children={
-          <Form>
-            <Form.Group className="mb-3" controlId="">
+          <Form onSubmit={handleEditWorkout}>
+            <Form.Group className="mb-3" controlId="workoutName">
               <Form.Label>Workout Name</Form.Label>
               <Form.Control
                 defaultValue={name}
@@ -37,7 +73,7 @@ export default function EditWorkoutModal({
                 placeholder="Enter name"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="aa">
+            <Form.Group className="mb-3" controlId="description">
               <Form.Label>Workout description</Form.Label>
               <Form.Control
                 defaultValue={description}
@@ -45,7 +81,7 @@ export default function EditWorkoutModal({
                 placeholder="Enter description"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
+            <Form.Group className="mb-3" controlId="durationMins">
               <Form.Label>Workout duration</Form.Label>
               <Form.Control
                 defaultValue={durationMins}

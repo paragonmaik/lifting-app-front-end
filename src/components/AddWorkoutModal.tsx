@@ -40,6 +40,7 @@ export default function AddWorkoutModal({ programId }: { programId: number }) {
       data,
     });
   }
+
   return (
     <>
       <Button variant="primary" onClick={() => setShow(!show)}>
