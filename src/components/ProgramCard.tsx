@@ -14,7 +14,7 @@ export default function ProgramCard(program: Program) {
           </div>
           <div className="my-1 w-100 d-flex justify-content-around align-items-center">
             <span>Duration: {program.durationWeeks} weeks</span>
-            <AddWorkoutModal />
+            <AddWorkoutModal programId={program.id} />
           </div>
         </div>
         {program.workouts.map((workout) => (
