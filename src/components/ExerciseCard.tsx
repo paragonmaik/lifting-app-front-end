@@ -14,7 +14,8 @@ export default function ExerciseCard(exercise: Exercise) {
             <th>Load</th>
             <th>Goal</th>
             <th>Rest</th>
-            <th>Sets/Reps</th>
+            <th>Sets</th>
+            <th>Reps</th>
           </tr>
         </thead>
         <tbody>
@@ -31,12 +32,18 @@ export default function ExerciseCard(exercise: Exercise) {
             <td>{exercise.goal}</td>
             <td>{exercise.restSeconds} seconds</td>
             <td></td>
+            <td></td>
           </tr>
         </tbody>
       </Table>
       <div className="d-flex justify-content-around">
         <Button>Start Timer</Button>
-        <EditExerciseModal {...exercise} />
+        <div>
+          <Button className="mx-1" variant="danger">
+            Delete Exercise
+          </Button>
+          <EditExerciseModal {...exercise} />
+        </div>
       </div>
     </div>
   );
