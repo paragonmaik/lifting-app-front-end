@@ -13,11 +13,18 @@ export default function WorkoutCard(workout: Workout) {
     <div className="card p-2 mt-1 mb-1 border border-primary">
       <div className="d-flex justify-content-around">
         <h4>{workout.name}</h4>
-        <EditWorkoutModal {...workout} />
+        <div>
+          <Button className="mx-1" variant="danger">
+            Delete Workout
+          </Button>
+          <EditWorkoutModal {...workout} />
+        </div>
       </div>
       <div className="my-3 w-100 d-flex justify-content-around">
         <span>Duration: {workout.durationMins} minutes</span>
-        <div></div>
+        <span>
+          {workout.description ? workout.description : 'No description'}
+        </span>
       </div>
       <Button
         onClick={() => setIsActive(!isActive)}
