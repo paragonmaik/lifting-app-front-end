@@ -1,21 +1,10 @@
 import SideBar from 'components/SideBar';
 import useProgram from 'hooks/useProgram';
-import ProgramCard from 'components/ProgramCard';
-import { ErrorObject } from 'types';
+import MainComponent from 'components/MainComponent';
 import { AxiosError } from 'axios';
-import { useContext } from 'react';
-import { Context } from 'context/Context';
 
 export default function Home() {
-  const { data: programs, isError, isLoading, error } = useProgram();
-  const { curProgramPos } = useContext(Context);
-
-  /*if (isError) {
-    const err = error as AxiosError;
-    const errorResponse = err.response?.data as ErrorObject;
-
-    return <h1>{errorResponse.message}</h1>;
-  }*/
+  const { data: programs, isLoading, error } = useProgram();
 
   return (
     <main className="d-flex h-100">
@@ -23,10 +12,8 @@ export default function Home() {
       <section className="h-100 w-100 overflow-auto">
         {isLoading ? (
           <h1>Loading...</h1>
-        ) : isError ? (
-          <h1>error</h1>
         ) : (
-          <ProgramCard {...programs[curProgramPos]} />
+          <MainComponent error={error as AxiosError} programs={programs} />
         )}
       </section>
     </main>
