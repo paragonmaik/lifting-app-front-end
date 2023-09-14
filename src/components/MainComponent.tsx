@@ -12,7 +12,7 @@ type MainComponentProps = {
 export default function MainComponent({ error, programs }: MainComponentProps) {
   const { curProgramPos } = useContext(Context);
 
-  const err = error.response?.data as ErrorObject;
+  const err = error?.response?.data as ErrorObject;
   return (
     <>
       {!programs ? (
