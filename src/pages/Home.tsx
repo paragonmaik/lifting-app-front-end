@@ -4,7 +4,7 @@ import MainComponent from 'components/MainComponent';
 import { AxiosError } from 'axios';
 
 export default function Home() {
-  const { data: programs, isLoading, error, isError } = useProgram();
+  const { data: programs, isLoading, error } = useProgram();
 
   return (
     <main className="d-flex h-100">
@@ -13,11 +13,7 @@ export default function Home() {
         {isLoading ? (
           <h1>Loading...</h1>
         ) : (
-          <MainComponent
-            isError={isError}
-            error={error as AxiosError}
-            programs={programs}
-          />
+          <MainComponent error={error as AxiosError} programs={programs} />
         )}
       </section>
     </main>
