@@ -1,5 +1,5 @@
 import useProgram from 'hooks/useProgram';
-import AddProgramModal from './AddProgramModal';
+import ProgramModal from './ProgramModal';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Program } from 'types';
 import { useContext, useState } from 'react';
@@ -19,7 +19,7 @@ export default function SideBar() {
               Logo placeholder<div>Collapse Placeholder</div>
             </div>
           </MenuItem>
-          <AddProgramModal />
+          <ProgramModal isAdd={true} />
           <SubMenu label="Programs">
             {programs?.map((program: Program, i) => (
               <MenuItem onClick={() => setCurProgramPos(i)} key={program.id}>

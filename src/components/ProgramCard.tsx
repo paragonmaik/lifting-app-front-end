@@ -1,6 +1,6 @@
 import WorkoutCard from './WorkoutCard';
-import EditProgramModal from './EditProgramModal';
 import AddWorkoutModal from './AddWorkoutModal';
+import ProgramModal from './ProgramModal';
 import { Program } from 'types';
 import { Button } from 'react-bootstrap';
 
@@ -15,7 +15,7 @@ export default function ProgramCard(program: Program) {
               <Button className="mx-1" variant="danger">
                 Delete Program
               </Button>
-              <EditProgramModal {...program} />
+              <ProgramModal isAdd={false} programDTO={program} />
             </div>
           </div>
           <div className="my-1 w-100 d-flex justify-content-around align-items-center">
