@@ -1,8 +1,8 @@
 import ExerciseCard from './ExerciseCard';
-import AddExerciseModal from './AddExerciseModal';
 import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 import WorkoutModal from './WorkoutModal';
+import ExerciseModal from './ExerciseModal';
 import { Workout } from 'types';
 import { useState } from 'react';
 
@@ -38,7 +38,7 @@ export default function WorkoutCard(workout: Workout) {
           {workout.exercises.map((exercise) => (
             <ExerciseCard key={exercise.id} {...exercise} />
           ))}
-          <AddExerciseModal workoutId={workout.id} />
+          <ExerciseModal isAdd={true} workoutId={workout.id} />
         </div>
       </Collapse>
     </div>

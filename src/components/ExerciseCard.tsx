@@ -1,6 +1,6 @@
-import EditExerciseModal from './EditExerciseModal';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import ExerciseModal from './ExerciseModal';
 import { Exercise } from 'types';
 
 export default function ExerciseCard(exercise: Exercise) {
@@ -42,7 +42,7 @@ export default function ExerciseCard(exercise: Exercise) {
           <Button className="mx-1" variant="danger">
             Delete Exercise
           </Button>
-          <EditExerciseModal {...exercise} />
+          <ExerciseModal isAdd={false} exerciseDTO={exercise} />
         </div>
       </div>
     </div>
