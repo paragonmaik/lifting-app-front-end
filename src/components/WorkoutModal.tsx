@@ -69,7 +69,7 @@ export default function WorkoutModal({
         {`${isAdd ? 'Add' : 'Edit'} Workout`}
       </Button>
       <BaseModal
-        modalHeader="Edit Workout"
+        modalHeader={`${isAdd ? 'Add' : 'Edit'} Workout`}
         show={show}
         setShow={setShow}
         children={
