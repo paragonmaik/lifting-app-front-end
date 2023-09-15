@@ -19,6 +19,7 @@ export default function SideBar() {
               Logo placeholder<div>Collapse Placeholder</div>
             </div>
           </MenuItem>
+          <MenuItem>Profile</MenuItem>
           <ProgramModal isAdd={true} />
           <SubMenu label="Programs">
             {programs?.map((program: Program, i) => (
@@ -27,8 +28,11 @@ export default function SideBar() {
               </MenuItem>
             ))}
           </SubMenu>
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>Tools</MenuItem>
+          <SubMenu label="Tools">
+            <MenuItem>Timer</MenuItem>
+            <MenuItem>ORM Calculator</MenuItem>
+            <MenuItem>FFMI Calculator</MenuItem>
+          </SubMenu>
         </Menu>
       </Sidebar>
     </div>
