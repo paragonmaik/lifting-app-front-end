@@ -1,6 +1,6 @@
 import WorkoutCard from './WorkoutCard';
-import AddWorkoutModal from './AddWorkoutModal';
 import ProgramModal from './ProgramModal';
+import WorkoutModal from './WorkoutModal';
 import { Program } from 'types';
 import { Button } from 'react-bootstrap';
 
@@ -20,7 +20,7 @@ export default function ProgramCard(program: Program) {
           </div>
           <div className="my-1 w-100 d-flex justify-content-around align-items-center">
             <span>Duration: {program.durationWeeks} weeks</span>
-            <AddWorkoutModal programId={program.id} />
+            <WorkoutModal programId={program.id} isAdd={true} />
           </div>
         </div>
         {program.workouts.map((workout) => (

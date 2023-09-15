@@ -1,8 +1,8 @@
 import ExerciseCard from './ExerciseCard';
-import EditWorkoutModal from './EditWorkoutModal';
 import AddExerciseModal from './AddExerciseModal';
 import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
+import WorkoutModal from './WorkoutModal';
 import { Workout } from 'types';
 import { useState } from 'react';
 
@@ -17,7 +17,7 @@ export default function WorkoutCard(workout: Workout) {
           <Button className="mx-1" variant="danger">
             Delete Workout
           </Button>
-          <EditWorkoutModal {...workout} />
+          <WorkoutModal isAdd={false} workoutDTO={workout} />
         </div>
       </div>
       <div className="my-3 w-100 d-flex justify-content-around">
