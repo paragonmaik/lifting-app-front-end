@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import ExerciseModal from './ExerciseModal';
 import { Exercise } from 'types';
+import DeleteModal from './DeleteModal';
 
 export default function ExerciseCard(exercise: Exercise) {
   return (
@@ -39,9 +40,13 @@ export default function ExerciseCard(exercise: Exercise) {
       <div className="d-flex justify-content-around">
         <Button>Start Timer</Button>
         <div>
-          <Button className="mx-1" variant="danger">
-            Delete Exercise
-          </Button>
+          <DeleteModal
+            shouldResetPos={false}
+            modelType="Exercise"
+            modelName={exercise.name}
+            url={`/api/exercises/${exercise.id}`}
+          />
+
           <ExerciseModal isAdd={false} exerciseDTO={exercise} />
         </div>
       </div>
