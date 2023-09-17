@@ -27,7 +27,6 @@ export default function DeleteModal({
   function shouldResetCurProgramPos(shouldResetPos: boolean) {
     if (shouldResetPos) {
       setCurProgramPos(0);
-      return;
     }
   }
 
