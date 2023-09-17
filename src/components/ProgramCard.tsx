@@ -1,8 +1,8 @@
 import WorkoutCard from './WorkoutCard';
 import ProgramModal from './ProgramModal';
 import WorkoutModal from './WorkoutModal';
+import DeleteModal from './DeleteModal';
 import { Program } from 'types';
-import { Button } from 'react-bootstrap';
 
 export default function ProgramCard(program: Program) {
   return (
@@ -12,9 +12,12 @@ export default function ProgramCard(program: Program) {
           <div className="my-1 d-flex justify-content-around align-items-center">
             <h1>{program.name}</h1>
             <div>
-              <Button className="mx-1" variant="danger">
-                Delete Program
-              </Button>
+              <DeleteModal
+                shouldResetPos={true}
+                modelType="Program"
+                modelName={program.name}
+                url={`/api/programs/${program.id}`}
+              />
               <ProgramModal isAdd={false} programDTO={program} />
             </div>
           </div>
@@ -23,7 +26,7 @@ export default function ProgramCard(program: Program) {
             <WorkoutModal programId={program.id} isAdd={true} />
           </div>
         </div>
-        {program.workouts.map((workout) => (
+        {program.workouts?.map((workout) => (
           <WorkoutCard key={workout.id} {...workout} />
         ))}
       </section>
