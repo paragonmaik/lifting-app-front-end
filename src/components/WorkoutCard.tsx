@@ -5,6 +5,7 @@ import WorkoutModal from './WorkoutModal';
 import ExerciseModal from './ExerciseModal';
 import { Workout } from 'types';
 import { useState } from 'react';
+import DeleteModal from './DeleteModal';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
@@ -14,9 +15,12 @@ export default function WorkoutCard(workout: Workout) {
       <div className="d-flex justify-content-around">
         <h4>{workout.name}</h4>
         <div>
-          <Button className="mx-1" variant="danger">
-            Delete Workout
-          </Button>
+          <DeleteModal
+            shouldResetPos={false}
+            modelType="Workout"
+            modelName={workout.name}
+            url={`/api/workouts/${workout.id}`}
+          />
           <WorkoutModal isAdd={false} workoutDTO={workout} />
         </div>
       </div>
