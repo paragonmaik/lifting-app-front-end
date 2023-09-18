@@ -1,51 +1,47 @@
-import { AxiosError, HttpStatusCode } from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useLocalStorage } from 'hooks/useLocalStorage';
-import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { axiosRequest } from 'utils/axiosRequest';
-
-async function handleLogin(
-  e: FormEvent<HTMLFormElement>,
-  setErrorMessage: Dispatch<SetStateAction<string | undefined>>,
-  setToken: Function,
-  navigate: NavigateFunction
-) {
-  e.preventDefault();
-  const { email, password } = e.target as typeof e.currentTarget;
-
-  if (password.length < 8) {
-    setErrorMessage('Password must be at least 8 characters long');
-    return;
-  }
-
-  try {
-    const { status, data } = await axiosRequest({
-      method: 'post',
-      url: '/api/auth/login',
-      data: {
-        login: email.value,
-        password: password.value,
-      },
-    });
-
-    if (status === HttpStatusCode.Ok) {
-      console.log(data.token);
-      setToken(data.token);
-      navigate('/home');
-    }
-  } catch (error) {
-    const res = error as AxiosError;
-    const data: any = res.response?.data;
-    if (!data) return;
-
-    setErrorMessage(data.message);
-  }
-}
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [_token, setToken] = useLocalStorage('token', '');
   const navigate = useNavigate();
+  const navigateHome = '/home';
+
+  const { mutate } = useMutation({
+    mutationFn: axiosRequest,
+    onSuccess: (response) => {
+      setToken(response.data.token);
+      navigate(navigateHome);
+    },
+    onError: (error: AxiosError) => {
+      const data: any = error?.response?.data;
+      setErrorMessage(data.message);
+    },
+  });
+
+  function handleLogin(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const { email, password } = e.target as typeof e.currentTarget;
+
+    if (password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long');
+      return;
+    }
+
+    mutate({
+      method: 'post',
+      url: '/api/auth/login',
+      data: {
+        login: email.value,
+        password: password.value,
+        role: 0,
+      },
+    });
+  }
 
   return (
     <>
@@ -53,11 +49,7 @@ export default function Login() {
         <div>
           <h4>Sign in</h4>
           <span>{errorMessage}</span>
-          <form
-            onSubmit={(e) =>
-              handleLogin(e, setErrorMessage, setToken, navigate)
-            }
-          >
+          <form onSubmit={handleLogin}>
             <div>
               <label>
                 E-mail
