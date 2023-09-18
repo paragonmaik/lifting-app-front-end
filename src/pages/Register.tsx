@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { axiosRequest } from 'utils/axiosRequest';
 import { useNavigate } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,16 +9,16 @@ export default function Register() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const validatePassword = (
-    password1: string,
-    password2: string
-  ): string | void => {
+  const validatePassword = (password1: string, password2: string): boolean => {
     if (password1.length < 8) {
-      return 'Password must be at least 8 characters long';
+      setErrorMessage('Password must be at least 8 characters long');
+      return false;
     }
     if (password1 !== password2) {
-      return 'Passwords must match!';
+      setErrorMessage('Passwords must match!');
+      return false;
     }
+    return true;
   };
 
   const { mutate } = useMutation({
@@ -33,10 +33,7 @@ export default function Register() {
     },
   });
 
-  async function handleRegister(
-    e: FormEvent<HTMLFormElement>,
-    setErrorMessage: Dispatch<SetStateAction<string | undefined>>
-  ) {
+  async function handleRegister(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { email, password1, password2 } = e.target as typeof e.currentTarget;
     const validatedPassword = validatePassword(
@@ -44,8 +41,7 @@ export default function Register() {
       password2.value
     );
 
-    if (validatedPassword) {
-      setErrorMessage(validatedPassword);
+    if (!validatedPassword) {
       return;
     }
 
@@ -65,7 +61,7 @@ export default function Register() {
       <div>
         <h4>Register</h4>
         <span>{errorMessage}</span>
-        <form onSubmit={(e) => handleRegister(e, setErrorMessage)}>
+        <form onSubmit={handleRegister}>
           <div>
             <label>
               E-mail
@@ -87,7 +83,6 @@ export default function Register() {
             </button>
           </div>
         </form>
-        <div></div>
       </div>
     </div>
   );
