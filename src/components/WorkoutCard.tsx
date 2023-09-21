@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 import WorkoutModal from './WorkoutModal';
 import ExerciseModal from './ExerciseModal';
+import DeleteModal from './DeleteModal';
 import { Workout } from 'types';
 import { useState } from 'react';
-import DeleteModal from './DeleteModal';
 
 export default function WorkoutCard(workout: Workout) {
-  const [isActive, setIsActive] = useState<boolean>(true);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
     <div className="card p-2 mt-1 mb-1 border border-primary">
@@ -42,7 +42,9 @@ export default function WorkoutCard(workout: Workout) {
           {workout.exercises.map((exercise) => (
             <ExerciseCard key={exercise.id} {...exercise} />
           ))}
-          <ExerciseModal isAdd={true} workoutId={workout.id} />
+          <div className="my-2">
+            <ExerciseModal isAdd={true} workoutId={workout.id} />
+          </div>
         </div>
       </Collapse>
     </div>
