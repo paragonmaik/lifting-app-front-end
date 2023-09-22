@@ -2,19 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { FormEvent, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { Goal } from 'types';
+import { ExerciseDTO } from 'types';
 import { axiosRequest } from 'utils/axiosRequest';
 import BaseModal from './ui/BaseModal';
 import BaseExerciseForm from './ui/BaseExerciseForm';
-
-type ExerciseDTO = {
-  id?: number;
-  name: string;
-  instructions: string;
-  load: number;
-  goal: Goal;
-  restSeconds: number;
-};
 
 type ExerciseModalProps = {
   workoutId?: number;
@@ -53,7 +44,7 @@ export default function ExerciseModal({
   function handleExercise(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { exerciseName, instructions, load, goal, restSeconds } =
+    const { exerciseName, instructions, load, goal, restSeconds, sets, reps } =
       e.target as typeof e.currentTarget;
 
     const data = {
@@ -63,6 +54,8 @@ export default function ExerciseModal({
       instructions: instructions.value,
       load: load.value,
       restSeconds: restSeconds.value,
+      sets: sets.value,
+      reps: reps.value,
     };
 
     exerciseRequest(data);

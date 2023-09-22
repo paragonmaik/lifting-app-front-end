@@ -14,9 +14,9 @@ export default function ExerciseCard(exercise: Exercise) {
             <th>Instructions</th>
             <th>Load</th>
             <th>Goal</th>
-            <th>Rest</th>
             <th>Sets</th>
             <th>Reps</th>
+            <th>Rest</th>
           </tr>
         </thead>
         <tbody>
@@ -31,9 +31,9 @@ export default function ExerciseCard(exercise: Exercise) {
             </td>
             <td>{exercise.load}kg</td>
             <td>{exercise.goal}</td>
+            <td>{exercise.sets}</td>
+            <td>{exercise.reps}</td>
             <td>{exercise.restSeconds} seconds</td>
-            <td></td>
-            <td></td>
           </tr>
         </tbody>
       </Table>

@@ -1,16 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FormEvent } from 'react';
-import { Goal } from 'types';
-
-type ExerciseDTO = {
-  id?: number;
-  name: string;
-  instructions: string;
-  load: number;
-  goal: Goal;
-  restSeconds: number;
-};
+import { ExerciseDTO } from 'types';
 
 type ExerciseFormType = {
   exerciseDTO?: ExerciseDTO;
@@ -43,11 +34,27 @@ export default function BaseExerciseForm({
           placeholder="Enter instructions"
         />
       </Form.Group>
+      <Form.Group className="mb-3" controlId="sets">
+        <Form.Label>Exercise Sets</Form.Label>
+        <Form.Control
+          defaultValue={exerciseDTO?.sets}
+          type="number"
+          placeholder="Enter how many sets"
+        />
+      </Form.Group>
+      <Form.Group className="mb-2" controlId="reps">
+        <Form.Label>Exercise Reps</Form.Label>
+        <Form.Control
+          defaultValue={exerciseDTO?.reps}
+          type="number"
+          placeholder="Enter how many reps"
+        />
+      </Form.Group>
       <Form.Group className="mb-3" controlId="load">
         <Form.Label>Exercise Load</Form.Label>
         <Form.Control
           defaultValue={exerciseDTO?.load}
-          type="text"
+          type="number"
           placeholder="Enter load (in kg)"
         />
       </Form.Group>
