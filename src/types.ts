@@ -13,6 +13,8 @@ export type Exercise = {
   restSeconds: number;
   instructions: string;
   dateCreated: string;
+  sets: number;
+  reps: number;
 };
 
 export type Workout = {
