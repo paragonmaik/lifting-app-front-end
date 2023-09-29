@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  lifting-app:
+    build: .
+    container_name: lifting-app-front
+    ports:
+      - 3000:3000
