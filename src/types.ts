@@ -13,6 +13,7 @@ export type ExerciseDTO = {
   restSeconds: number;
   sets: number;
   reps: number;
+  execOrder: number;
 };
 
 export type Exercise = {
@@ -26,6 +27,7 @@ export type Exercise = {
   dateCreated: string;
   sets: number;
   reps: number;
+  execOrder: number;
 };
 
 export type Workout = {
