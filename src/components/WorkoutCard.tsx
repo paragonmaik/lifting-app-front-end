@@ -6,10 +6,14 @@ import ExerciseModal from './ExerciseModal';
 import DeleteModal from './DeleteModal';
 import { Exercise, Workout } from 'types';
 import { useState } from 'react';
+import { DragDropContext, Draggable } from 'react-beautiful-dnd';
+import { StrictModeDroppable as Droppable } from 'utils/StrictModeDroppable';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
   const exerciseOrder = workout.exercises.length;
+
+  function handleOnDragEnd() {}
 
   return (
     <div className="card p-2 mt-1 mb-1 border border-primary">
@@ -40,11 +44,36 @@ export default function WorkoutCard(workout: Workout) {
       </Button>
       <Collapse in={isActive}>
         <div id={`workout-card-${workout.id}`}>
-          {workout.exercises
-            .sort((a: Exercise, b: Exercise) => a.execOrder - b.execOrder)
-            .map((exercise) => (
-              <ExerciseCard key={exercise.id} {...exercise} />
-            ))}
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="exercises">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {workout.exercises
+                    .sort(
+                      (a: Exercise, b: Exercise) => a.execOrder - b.execOrder
+                    )
+                    .map((exercise, index) => (
+                      <Draggable
+                        key={exercise.id}
+                        draggableId={exercise.id.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            <ExerciseCard {...exercise} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
           <div className="my-2">
             <ExerciseModal
               isAdd={true}
