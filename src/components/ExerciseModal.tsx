@@ -8,6 +8,7 @@ import BaseModal from './ui/BaseModal';
 import BaseExerciseForm from './ui/BaseExerciseForm';
 
 type ExerciseModalProps = {
+  exerciseOrder?: number;
   workoutId?: number;
   exerciseDTO?: ExerciseDTO;
   isAdd: boolean;
@@ -17,6 +18,7 @@ export default function ExerciseModal({
   workoutId,
   isAdd,
   exerciseDTO,
+  exerciseOrder,
 }: ExerciseModalProps) {
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
@@ -56,6 +58,7 @@ export default function ExerciseModal({
       restSeconds: restSeconds.value,
       sets: sets.value,
       reps: reps.value,
+      execOrder: exerciseOrder,
     };
 
     exerciseRequest(data);
