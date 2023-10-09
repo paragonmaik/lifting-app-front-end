@@ -4,11 +4,12 @@ import Collapse from 'react-bootstrap/Collapse';
 import WorkoutModal from './WorkoutModal';
 import ExerciseModal from './ExerciseModal';
 import DeleteModal from './DeleteModal';
-import { Workout } from 'types';
+import { Exercise, Workout } from 'types';
 import { useState } from 'react';
 
 export default function WorkoutCard(workout: Workout) {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const exerciseOrder = workout.exercises.length;
 
   return (
     <div className="card p-2 mt-1 mb-1 border border-primary">
@@ -39,11 +40,17 @@ export default function WorkoutCard(workout: Workout) {
       </Button>
       <Collapse in={isActive}>
         <div id={`workout-card-${workout.id}`}>
-          {workout.exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id} {...exercise} />
-          ))}
+          {workout.exercises
+            .sort((a: Exercise, b: Exercise) => a.execOrder - b.execOrder)
+            .map((exercise) => (
+              <ExerciseCard key={exercise.id} {...exercise} />
+            ))}
           <div className="my-2">
-            <ExerciseModal isAdd={true} workoutId={workout.id} />
+            <ExerciseModal
+              isAdd={true}
+              exerciseOrder={exerciseOrder}
+              workoutId={workout.id}
+            />
           </div>
         </div>
       </Collapse>
