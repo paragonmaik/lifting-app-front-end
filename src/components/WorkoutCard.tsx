@@ -6,14 +6,22 @@ import ExerciseModal from './ExerciseModal';
 import DeleteModal from './DeleteModal';
 import { Exercise, Workout } from 'types';
 import { useState } from 'react';
-import { DragDropContext, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable as Droppable } from 'utils/StrictModeDroppable';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
   const exerciseOrder = workout.exercises.length;
 
-  function handleOnDragEnd() {}
+  function handleOnDragEnd(result: DropResult): void {
+    if (!result.destination) return;
+
+    const sourceIndex = result.source.index;
+    const destinationIndex = result.destination.index;
+
+    workout.exercises[result.source.index].execOrder = destinationIndex;
+    workout.exercises[result.destination.index].execOrder = sourceIndex;
+  }
 
   return (
     <div className="card p-2 mt-1 mb-1 border border-primary">
