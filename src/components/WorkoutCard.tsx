@@ -8,10 +8,14 @@ import { Exercise, Workout } from 'types';
 import { useState } from 'react';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable as Droppable } from 'utils/StrictModeDroppable';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosRequest } from 'utils/axiosRequest';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 export default function WorkoutCard(workout: Workout) {
   const [isActive, setIsActive] = useState<boolean>(true);
   const exerciseOrder = workout.exercises.length;
+  const [token, _setToken] = useLocalStorage('token', '');
 
   function handleOnDragEnd(result: DropResult): void {
     if (!result.destination) return;
@@ -19,8 +23,38 @@ export default function WorkoutCard(workout: Workout) {
     const sourceIndex = result.source.index;
     const destinationIndex = result.destination.index;
 
-    workout.exercises[result.source.index].execOrder = destinationIndex;
-    workout.exercises[result.destination.index].execOrder = sourceIndex;
+    if (sourceIndex == destinationIndex) return;
+
+    if (Math.abs(sourceIndex - destinationIndex) <= 1) {
+      workout.exercises[sourceIndex].execOrder = destinationIndex;
+      workout.exercises[destinationIndex].execOrder = sourceIndex;
+      return;
+    }
+
+    if (sourceIndex < destinationIndex) {
+      workout.exercises[sourceIndex].execOrder = destinationIndex + 0.5;
+
+      workout.exercises.forEach((exercise) => {
+        if (exercise.execOrder <= destinationIndex) {
+          exercise.execOrder -= 1;
+        }
+      });
+
+      workout.exercises[sourceIndex].execOrder -= 0.5;
+      return;
+    }
+
+    if (sourceIndex > destinationIndex) {
+      workout.exercises[sourceIndex].execOrder = destinationIndex - 0.5;
+      workout.exercises.forEach((exercise) => {
+        if (exercise.execOrder >= destinationIndex) {
+          exercise.execOrder += 1;
+        }
+      });
+
+      workout.exercises[sourceIndex].execOrder += 0.5;
+      return;
+    }
   }
 
   return (
