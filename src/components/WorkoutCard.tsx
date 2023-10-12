@@ -8,7 +8,7 @@ import { Exercise, Workout } from 'types';
 import { useState } from 'react';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable as Droppable } from 'utils/StrictModeDroppable';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
@@ -17,14 +17,22 @@ export default function WorkoutCard(workout: Workout) {
   const exerciseOrder = workout.exercises.length;
   const [token, _setToken] = useLocalStorage('token', '');
 
-  function handleOnDragEnd(result: DropResult): void {
-    if (!result.destination) return;
+  const { mutate } = useMutation({
+    mutationFn: axiosRequest,
+  });
 
-    const sourceIndex = result.source.index;
-    const destinationIndex = result.destination.index;
+  const exerciseRequest = (data: {}) => {
+    mutate({
+      method: 'put',
+      url: '/api/exercises/reorder',
+      headers: {
+        Authorization: token,
+      },
+      data,
+    });
+  };
 
-    if (sourceIndex == destinationIndex) return;
-
+  const setExecOrder = (sourceIndex: number, destinationIndex: number) => {
     if (Math.abs(sourceIndex - destinationIndex) <= 1) {
       workout.exercises[sourceIndex].execOrder = destinationIndex;
       workout.exercises[destinationIndex].execOrder = sourceIndex;
@@ -55,6 +63,19 @@ export default function WorkoutCard(workout: Workout) {
       workout.exercises[sourceIndex].execOrder += 0.5;
       return;
     }
+  };
+
+  function handleOnDragEnd(result: DropResult): void {
+    if (!result.destination) return;
+
+    const sourceIndex = result.source.index;
+    const destinationIndex = result.destination.index;
+
+    if (sourceIndex == destinationIndex) return;
+
+    setExecOrder(sourceIndex, destinationIndex);
+
+    exerciseRequest(workout.exercises);
   }
 
   return (
