@@ -3,11 +3,11 @@ import ProgramModal from './ProgramModal';
 import useScreenSize from 'hooks/useScreenSize';
 import toolsIcon from '../../public/tools-svgrepo-com.svg';
 import addIcon from '../../public/add-circle-svgrepo-com.svg';
-import profileIcon from '../../public/person-lifting-weights-svgrepo-com.svg';
+import profileIcon from '../../public/profile-round-1346-svgrepo-com.svg';
 import programsIcon from '../../public/list-ul-alt-svgrepo-com.svg';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { Program } from 'types';
 import { useContext, useEffect, useState } from 'react';
+import { Program } from 'types';
 import { Context } from 'context/Context';
 
 export default function SideBar() {
