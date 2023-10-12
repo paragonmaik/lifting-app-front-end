@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, ReactNode, useState } from 'react';
 import { MenuItem } from 'react-pro-sidebar';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -17,9 +17,14 @@ type ProgramDTO = {
 type ProgramModalProps = {
   programDTO?: ProgramDTO;
   isAdd: boolean;
+  addBtn: string | ReactNode;
 };
 
-export default function ProgramModal({ isAdd, programDTO }: ProgramModalProps) {
+export default function ProgramModal({
+  isAdd,
+  programDTO,
+  addBtn,
+}: ProgramModalProps) {
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
   const queryClient = useQueryClient();
@@ -62,7 +67,7 @@ export default function ProgramModal({ isAdd, programDTO }: ProgramModalProps) {
   return (
     <>
       {isAdd ? (
-        <MenuItem onClick={() => setShow(!show)}>Add Program</MenuItem>
+        <MenuItem onClick={() => setShow(!show)}>{addBtn}</MenuItem>
       ) : (
         <Button variant="primary" onClick={() => setShow(!show)}>
           Edit Program

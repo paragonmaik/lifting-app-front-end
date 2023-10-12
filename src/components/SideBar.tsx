@@ -1,9 +1,13 @@
 import useProgram from 'hooks/useProgram';
 import ProgramModal from './ProgramModal';
 import useScreenSize from 'hooks/useScreenSize';
+import toolsIcon from '../../public/tools-svgrepo-com.svg';
+import addIcon from '../../public/add-circle-svgrepo-com.svg';
+import profileIcon from '../../public/person-lifting-weights-svgrepo-com.svg';
+import programsIcon from '../../public/list-ul-alt-svgrepo-com.svg';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Program } from 'types';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from 'context/Context';
 
 export default function SideBar() {
@@ -12,35 +16,54 @@ export default function SideBar() {
   const { setCurProgramPos } = useContext(Context);
   const [screenSize, _setScreenSize] = useScreenSize();
 
+  useEffect(() => {
+    if (shouldCollapse()) setCollapsed(true);
+  }, [shouldCollapse()]);
+
+  function shouldCollapse(): boolean {
+    return screenSize.width < 800;
+  }
+
   function collapseSidebar(): void {
-    if (screenSize.width < 800) {
-      return;
+    if (shouldCollapse()) {
+      setCollapsed(collapsed);
+    } else {
+      setCollapsed(!collapsed);
     }
-    setCollapsed(!collapsed);
   }
 
   return (
     <div className="h-100">
-      <Sidebar
-        className="h-100"
-        collapsed={screenSize.width < 800 ? true : collapsed}
-      >
+      <Sidebar className="h-100" collapsed={collapsed}>
         <Menu>
           <MenuItem onClick={() => collapseSidebar()}>
             <div className="d-flex">
               Logo placeholder<div>Collapse Placeholder</div>
             </div>
           </MenuItem>
-          <MenuItem>Profile</MenuItem>
-          <ProgramModal isAdd={true} />
-          <SubMenu label="Programs">
+          <MenuItem>
+            {collapsed ? <img width={32} src={profileIcon}></img> : 'Programs'}
+          </MenuItem>
+          <ProgramModal
+            addBtn={
+              collapsed ? <img width={32} src={addIcon}></img> : 'Add Program'
+            }
+            isAdd={true}
+          />
+          <SubMenu
+            label={
+              collapsed ? <img width={32} src={programsIcon}></img> : 'Programs'
+            }
+          >
             {programs?.map((program: Program, i) => (
               <MenuItem onClick={() => setCurProgramPos(i)} key={program.id}>
                 {program.name}
               </MenuItem>
             ))}
           </SubMenu>
-          <SubMenu label="Tools">
+          <SubMenu
+            label={collapsed ? <img width={32} src={toolsIcon}></img> : 'Tools'}
+          >
             <MenuItem>Timer</MenuItem>
             <MenuItem>ORM Calculator</MenuItem>
             <MenuItem>FFMI Calculator</MenuItem>
