@@ -41,7 +41,7 @@ export default function ExerciseCard(exercise: Exercise) {
           </tr>
         </tbody>
       </Table>
-      <div className="d-flex justify-content-around">
+      <div className="d-flex justify-content-around my-2">
         <Button>
           {screenSize.width < 800 ? (
             <img width={24} src={timerIcon} />
