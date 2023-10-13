@@ -1,9 +1,12 @@
 import BaseModal from './ui/BaseModal';
 import BaseWorkoutForm from './ui/BaseWorkoutForm';
+import editIcon from '../../public/edit-3-svgrepo-com.svg';
+import addIcon from '../../public/add-circle-svgrepo-com.svg';
+import InnerButton from './ui/InnerButton';
+import Button from 'react-bootstrap/Button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { FormEvent, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { axiosRequest } from 'utils/axiosRequest';
 
 type WorkoutDTO = {
@@ -65,9 +68,15 @@ export default function WorkoutModal({
 
   return (
     <>
-      <Button variant="primary" onClick={() => setShow(!show)}>
-        {`${isAdd ? 'Add' : 'Edit'} Workout`}
-      </Button>
+      {
+        <Button variant="primary" onClick={() => setShow(!show)}>
+          {isAdd ? (
+            <InnerButton icon={addIcon} text="Add Workout" />
+          ) : (
+            <InnerButton icon={editIcon} text="Edit Workout" />
+          )}
+        </Button>
+      }
       <BaseModal
         modalHeader={`${isAdd ? 'Add' : 'Edit'} Workout`}
         show={show}
