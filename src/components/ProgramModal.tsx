@@ -6,6 +6,8 @@ import { axiosRequest } from 'utils/axiosRequest';
 import BaseModal from './ui/BaseModal';
 import BaseProgramForm from './ui/BaseProgramForm';
 import Button from 'react-bootstrap/esm/Button';
+import useScreenSize from 'hooks/useScreenSize';
+import editIcon from '../../public/edit-3-svgrepo-com.svg';
 
 type ProgramDTO = {
   id: number;
@@ -27,6 +29,7 @@ export default function ProgramModal({
 }: ProgramModalProps) {
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
+  const [screenSize, _setScreenSize] = useScreenSize();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -70,7 +73,11 @@ export default function ProgramModal({
         <MenuItem onClick={() => setShow(!show)}>{addBtn}</MenuItem>
       ) : (
         <Button variant="primary" onClick={() => setShow(!show)}>
-          Edit Program
+          {screenSize.width < 800 ? (
+            <img width={24} src={editIcon} />
+          ) : (
+            'Edit Program'
+          )}
         </Button>
       )}
       <BaseModal

@@ -5,6 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
 import { Context } from 'context/Context';
 import BaseModal from './ui/BaseModal';
+import deleteIcon from '../../public/trash-xmark-alt-svgrepo-com.svg';
+import useScreenSize from 'hooks/useScreenSize';
 
 type DeleteModalProps = {
   shouldResetPos: boolean;
@@ -23,6 +25,7 @@ export default function DeleteModal({
   const [token, _setToken] = useLocalStorage('token', '');
   const [show, setShow] = useState(false);
   const queryClient = useQueryClient();
+  const [screenSize, _setScreenSize] = useScreenSize();
 
   function shouldResetCurProgramPos(shouldResetPos: boolean) {
     if (shouldResetPos) {
@@ -52,7 +55,11 @@ export default function DeleteModal({
   return (
     <>
       <Button className="mx-1" variant="danger" onClick={() => setShow(!show)}>
-        {`Delete ${modelType}`}
+        {screenSize.width < 800 ? (
+          <img width={24} src={deleteIcon} />
+        ) : (
+          `Delete ${modelType}`
+        )}
       </Button>
       <BaseModal
         modalHeader={`Delete ${modelName}`}
