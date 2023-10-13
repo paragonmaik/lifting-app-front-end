@@ -17,7 +17,7 @@ type ProgramDTO = {
 type ProgramModalProps = {
   programDTO?: ProgramDTO;
   isAdd: boolean;
-  addBtn: string | ReactNode;
+  addBtn?: string | ReactNode;
 };
 
 export default function ProgramModal({
