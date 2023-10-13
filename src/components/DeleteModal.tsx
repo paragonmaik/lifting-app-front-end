@@ -1,9 +1,9 @@
-import { Button } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from 'utils/axiosRequest';
 import { Context } from 'context/Context';
+import Button from 'react-bootstrap/Button';
 import BaseModal from './ui/BaseModal';
 import deleteIcon from '../../public/trash-xmark-alt-svgrepo-com.svg';
 import useScreenSize from 'hooks/useScreenSize';
