@@ -42,17 +42,17 @@ export default function SideBar() {
             </div>
           </MenuItem>
           <MenuItem>
-            {collapsed ? <img width={32} src={profileIcon}></img> : 'Programs'}
+            {collapsed ? <img width={32} src={profileIcon} /> : 'Programs'}
           </MenuItem>
           <ProgramModal
             addBtn={
-              collapsed ? <img width={32} src={addIcon}></img> : 'Add Program'
+              collapsed ? <img width={32} src={addIcon} /> : 'Add Program'
             }
             isAdd={true}
           />
           <SubMenu
             label={
-              collapsed ? <img width={32} src={programsIcon}></img> : 'Programs'
+              collapsed ? <img width={32} src={programsIcon} /> : 'Programs'
             }
           >
             {programs?.map((program: Program, i) => (
