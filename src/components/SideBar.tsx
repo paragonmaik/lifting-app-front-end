@@ -3,6 +3,7 @@ import ProgramModal from './ProgramModal';
 import useScreenSize from 'hooks/useScreenSize';
 import toolsIcon from '../../public/tools-svgrepo-com.svg';
 import addIcon from '../../public/add-circle-svgrepo-com.svg';
+import dumbbellIcon from '../../public/dumbbell-svgrepo-com.svg';
 import profileIcon from '../../public/profile-round-1346-svgrepo-com.svg';
 import programsIcon from '../../public/list-ul-alt-svgrepo-com.svg';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
@@ -37,9 +38,7 @@ export default function SideBar() {
       <Sidebar className="h-100" collapsed={collapsed}>
         <Menu>
           <MenuItem onClick={() => collapseSidebar()}>
-            <div className="d-flex">
-              Logo placeholder<div>Collapse Placeholder</div>
-            </div>
+            {collapsed ? <img width={32} src={dumbbellIcon} /> : 'Hide Sidebar'}
           </MenuItem>
           <MenuItem>
             {collapsed ? <img width={32} src={profileIcon} /> : 'Programs'}
