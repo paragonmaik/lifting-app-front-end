@@ -1,14 +1,10 @@
-import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import ExerciseModal from './ExerciseModal';
 import DeleteModal from './DeleteModal';
-import useScreenSize from 'hooks/useScreenSize';
-import timerIcon from '../../public/timer-svgrepo-com.svg';
+import Timer from './Timer';
 import { Exercise } from 'types';
 
 export default function ExerciseCard(exercise: Exercise) {
-  const [screenSize, _setScreenSize] = useScreenSize();
-
   return (
     <div className="p-2 my-2 border border-secondary">
       <Table responsive>
@@ -42,13 +38,7 @@ export default function ExerciseCard(exercise: Exercise) {
         </tbody>
       </Table>
       <div className="d-flex justify-content-around my-2">
-        <Button>
-          {screenSize.width < 800 ? (
-            <img width={24} src={timerIcon} />
-          ) : (
-            'Start Timer'
-          )}
-        </Button>
+        <Timer timeInSeconds={exercise.restSeconds} />
         <div>
           <DeleteModal
             shouldResetPos={false}
