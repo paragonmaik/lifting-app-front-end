@@ -10,6 +10,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useContext, useEffect, useState } from 'react';
 import { Program } from 'types';
 import { Context } from 'context/Context';
+import ProfileModal from './ProfileModal';
 
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
@@ -40,9 +41,11 @@ export default function SideBar() {
           <MenuItem onClick={() => collapseSidebar()}>
             {collapsed ? <img width={32} src={dumbbellIcon} /> : 'Hide Sidebar'}
           </MenuItem>
-          <MenuItem>
-            {collapsed ? <img width={32} src={profileIcon} /> : 'Programs'}
-          </MenuItem>
+          <ProfileModal
+            profileBtn={
+              collapsed ? <img width={32} src={profileIcon} /> : 'Profile'
+            }
+          />
           <ProgramModal
             addBtn={
               collapsed ? <img width={32} src={addIcon} /> : 'Add Program'
