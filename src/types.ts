@@ -4,6 +4,12 @@ export type ErrorObject = {
   message: string;
 };
 
+export type ProfileDTO = {
+  id: string;
+  weight: number;
+  height: number;
+};
+
 export type ExerciseDTO = {
   id?: number;
   name: string;
