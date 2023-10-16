@@ -1,7 +1,6 @@
 import useProgram from 'hooks/useProgram';
 import ProgramModal from './ProgramModal';
 import useScreenSize from 'hooks/useScreenSize';
-import toolsIcon from '../../public/tools-svgrepo-com.svg';
 import addIcon from '../../public/add-circle-svgrepo-com.svg';
 import dumbbellIcon from '../../public/dumbbell-svgrepo-com.svg';
 import profileIcon from '../../public/profile-round-1346-svgrepo-com.svg';
@@ -62,13 +61,6 @@ export default function SideBar() {
                 {program.name}
               </MenuItem>
             ))}
-          </SubMenu>
-          <SubMenu
-            label={collapsed ? <img width={32} src={toolsIcon}></img> : 'Tools'}
-          >
-            <MenuItem>Timer</MenuItem>
-            <MenuItem>ORM Calculator</MenuItem>
-            <MenuItem>FFMI Calculator</MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>
