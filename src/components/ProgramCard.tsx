@@ -8,8 +8,11 @@ export default function ProgramCard(program: Program) {
   return (
     <div className="container">
       <section className="row me-100">
-        <div className="p-2 mt-1 mb-1">
-          <div className="my-1 d-flex justify-content-around align-items-center">
+        <div className="p-2 mt-1 mb-1 bg-light border rounded-top">
+          <div
+            className="my-1 d-flex justify-content-around
+           align-items-center"
+          >
             <h1>{program.name}</h1>
             <div>
               <DeleteModal
