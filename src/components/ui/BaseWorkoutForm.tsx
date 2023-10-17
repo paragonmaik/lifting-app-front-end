@@ -45,7 +45,7 @@ export default function BaseWorkoutForm({
         <Form.Control
           defaultValue={workoutDTO?.durationMins}
           type="number"
-          placeholder="Enter duration (in Mins)"
+          placeholder="Enter estimated duration (in Mins)"
         />
       </Form.Group>
       <br />
