@@ -56,7 +56,7 @@ export default function Timer({ timeInSeconds }: TimerProps) {
           {screenSize.width < 800 ? (
             <img width={24} src={timerIcon} />
           ) : (
-            'Start Timer'
+            'Stop Timer'
           )}
         </Button>
       ) : (
@@ -64,7 +64,7 @@ export default function Timer({ timeInSeconds }: TimerProps) {
           {screenSize.width < 800 ? (
             <img width={24} src={timerIcon} />
           ) : (
-            'Stop Timer'
+            'Start Timer'
           )}
         </Button>
       )}
