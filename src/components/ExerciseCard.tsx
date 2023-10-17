@@ -6,7 +6,7 @@ import { Exercise } from 'types';
 
 export default function ExerciseCard(exercise: Exercise) {
   return (
-    <div className="p-2 my-2 border border-secondary">
+    <div className="p-2 my-2 border rounded border-secondary bg-white">
       <Table responsive>
         <thead>
           <tr>
