@@ -11,11 +11,11 @@ export default function ExerciseCard(exercise: Exercise) {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Instructions</th>
+            {exercise.instructions ? <th>Instructions</th> : null}
             <th>Load</th>
-            <th>Goal</th>
             <th>Sets</th>
             <th>Reps</th>
+            <th>Goal</th>
             <th>Rest</th>
           </tr>
         </thead>
@@ -24,15 +24,11 @@ export default function ExerciseCard(exercise: Exercise) {
             <td>
               <h6>{exercise.name}</h6>
             </td>
-            <td>
-              {exercise.instructions
-                ? exercise.instructions
-                : 'No instructions.'}
-            </td>
+            {exercise.instructions ? <td>exercise.instructions</td> : null}
             <td>{exercise.load}kg</td>
-            <td>{exercise.goal}</td>
             <td>{exercise.sets}</td>
             <td>{exercise.reps}</td>
+            <td>{exercise.goal}</td>
             <td>{exercise.restSeconds} seconds</td>
           </tr>
         </tbody>
