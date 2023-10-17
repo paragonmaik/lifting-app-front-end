@@ -79,7 +79,7 @@ export default function WorkoutCard(workout: Workout) {
   }
 
   return (
-    <div className="card p-2 mt-1 mb-1 border border-primary">
+    <div className="p-2 mt-1 mb-1 border bg-light">
       <div className="d-flex justify-content-around">
         <h4>{workout.name}</h4>
         <div>
