@@ -23,7 +23,7 @@ export default function BaseAuthForm({
   const navigate = useNavigate();
 
   return (
-    <div className="d-flex flex-column justify-content-center h-75">
+    <div className="d-flex flex-column justify-content-center h-50">
       <h1>{authType === 'register' ? 'Create Account' : 'Sign in'}</h1>
       <div className="d-flex justify-content-center">
         <Form onSubmit={handleSubmit}>
