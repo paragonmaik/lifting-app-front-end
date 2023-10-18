@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { axiosRequest } from 'utils/axiosRequest';
 import BaseAuthForm from 'components/ui/BaseAuthForm';
+import { Button } from 'react-bootstrap';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -46,12 +47,35 @@ export default function Login() {
     });
   }
 
+  function handleDemoLogin() {
+    mutate({
+      method: 'post',
+      url: '/api/auth/login',
+      data: {
+        login: import.meta.env.VITE_DEMO_USER,
+        password: import.meta.env.VITE_DEMO_PASSWORD,
+        role: 0,
+      },
+    });
+  }
+
   return (
-    <BaseAuthForm
-      authType="login"
-      handleSubmit={handleLogin}
-      navigateUrl={navigateRegister}
-      errorMessage={errorMessage}
-    />
+    <>
+      <BaseAuthForm
+        authType="login"
+        handleSubmit={handleLogin}
+        navigateUrl={navigateRegister}
+        errorMessage={errorMessage}
+      />
+      <div className="mx-auto d-flex w-25">
+        <hr className="w-50" />
+        <h4>OR</h4>
+        <hr className="w-50" />
+      </div>
+      <div className="my-4">
+        <h3>Demo the App</h3>
+        <Button onClick={handleDemoLogin}>Demo</Button>
+      </div>
+    </>
   );
 }
