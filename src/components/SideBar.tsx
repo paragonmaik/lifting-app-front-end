@@ -4,12 +4,14 @@ import useScreenSize from 'hooks/useScreenSize';
 import addIcon from '../../public/add-circle-svgrepo-com.svg';
 import dumbbellIcon from '../../public/dumbbell-svgrepo-com.svg';
 import profileIcon from '../../public/profile-round-1346-svgrepo-com.svg';
+import signoutIcon from '../../public/logout-2-svgrepo-com.svg';
 import programsIcon from '../../public/list-ul-alt-svgrepo-com.svg';
+import ProfileModal from './ProfileModal';
+import LogoutModal from './LogoutModal';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useContext, useEffect, useState } from 'react';
 import { Program } from 'types';
 import { Context } from 'context/Context';
-import ProfileModal from './ProfileModal';
 
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
@@ -62,6 +64,11 @@ export default function SideBar() {
               </MenuItem>
             ))}
           </SubMenu>
+          <LogoutModal
+            logoutBtn={
+              collapsed ? <img width={32} src={signoutIcon} /> : 'Sign out'
+            }
+          />
         </Menu>
       </Sidebar>
     </div>
