@@ -3,11 +3,11 @@ import { ReactNode } from 'react';
 import { MenuItem } from 'react-pro-sidebar';
 import { useNavigate } from 'react-router-dom';
 
-type LogoutModalProps = {
+type LogoutProps = {
   logoutBtn: string | ReactNode;
 };
 
-export default function LogoutModal({ logoutBtn }: LogoutModalProps) {
+export default function Logout({ logoutBtn }: LogoutProps) {
   const [_token, setToken] = useLocalStorage('token', '');
   const navigate = useNavigate();
   const navigateLogin = '/login';
