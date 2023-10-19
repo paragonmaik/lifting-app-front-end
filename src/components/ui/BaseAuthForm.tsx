@@ -29,7 +29,7 @@ export default function BaseAuthForm({
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="email">
             <FloatingLabel controlId="email" label="Email" className="mb-3">
-              <Form.Control type="email" placeholder="Email" />
+              <Form.Control required type="email" placeholder="Email" />
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="mb-3" controlId="password1">
@@ -38,7 +38,7 @@ export default function BaseAuthForm({
               label="Password"
               className="mb-3"
             >
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control required type="password" placeholder="Password" />
             </FloatingLabel>
           </Form.Group>
           {authType === 'register' ? (
@@ -48,7 +48,11 @@ export default function BaseAuthForm({
                 label="Re-enter Password"
                 className="mb-3"
               >
-                <Form.Control type="password" placeholder="Re-enter Password" />
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="Re-enter Password"
+                />
               </FloatingLabel>
             </Form.Group>
           ) : null}
