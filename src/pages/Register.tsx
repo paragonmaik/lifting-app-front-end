@@ -30,7 +30,7 @@ export default function Register() {
       setShow(true);
       setInterval(() => {
         navigate(navigateLogin);
-      }, 3200);
+      }, 1500);
     },
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
@@ -74,6 +74,7 @@ export default function Register() {
         message="Registration was successful! You'll be redirected to the login page."
         setShow={setShow}
         show={show}
+        delay={1300}
       />
     </>
   );
