@@ -1,13 +1,14 @@
 import { FormEvent, useState } from 'react';
 import { axiosRequest } from 'utils/axiosRequest';
-import { useNavigate } from 'react-router';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import BaseAuthForm from 'components/ui/BaseAuthForm';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState<string>();
-  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
   const navigateLogin = '/login';
 
   const validatePassword = (password1: string, password2: string): boolean => {
@@ -25,7 +26,7 @@ export default function Register() {
   const { mutate } = useMutation({
     mutationFn: axiosRequest,
     onSuccess: () => {
-      navigate(navigateLogin);
+      setShow(true);
     },
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
@@ -33,7 +34,7 @@ export default function Register() {
     },
   });
 
-  async function handleRegister(e: FormEvent<HTMLFormElement>) {
+  function handleRegister(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { email, password1, password2 } = e.target as typeof e.currentTarget;
@@ -58,11 +59,21 @@ export default function Register() {
   }
 
   return (
-    <BaseAuthForm
-      authType="register"
-      handleSubmit={handleRegister}
-      navigateUrl={navigateLogin}
-      errorMessage={errorMessage}
-    />
+    <>
+      <BaseAuthForm
+        authType="register"
+        handleSubmit={handleRegister}
+        navigateUrl={navigateLogin}
+        errorMessage={errorMessage}
+      />
+      <ToastContainer position="middle-center">
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Header>
+            <strong className="me-auto">Registration</strong>
+          </Toast.Header>
+          <Toast.Body>{errorMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
+    </>
   );
 }
