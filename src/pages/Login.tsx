@@ -29,7 +29,6 @@ export default function Login() {
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
       setErrorMessage(data.message);
-      console.log(error);
     },
   });
 
