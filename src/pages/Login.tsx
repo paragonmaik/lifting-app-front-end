@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useLocalStorage } from 'hooks/useLocalStorage';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { axiosRequest } from 'utils/axiosRequest';
 import BaseAuthForm from 'components/ui/BaseAuthForm';
@@ -9,10 +9,16 @@ import { Button } from 'react-bootstrap';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>();
-  const [_token, setToken] = useLocalStorage('token', '');
+  const [token, setToken] = useLocalStorage('token', '');
   const navigate = useNavigate();
   const navigateHome = '/home';
   const navigateRegister = '/register';
+
+  useEffect(() => {
+    if (token) {
+      navigate(navigateHome);
+    }
+  }, []);
 
   const { mutate } = useMutation({
     mutationFn: axiosRequest,
