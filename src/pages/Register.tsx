@@ -2,13 +2,14 @@ import { FormEvent, useState } from 'react';
 import { axiosRequest } from 'utils/axiosRequest';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import BaseAuthForm from 'components/ui/BaseAuthForm';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
+import BaseToast from 'components/ui/BaseToast';
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const navigateLogin = '/login';
 
   const validatePassword = (password1: string, password2: string): boolean => {
@@ -27,6 +28,9 @@ export default function Register() {
     mutationFn: axiosRequest,
     onSuccess: () => {
       setShow(true);
+      setInterval(() => {
+        navigate(navigateLogin);
+      }, 3200);
     },
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
@@ -66,14 +70,11 @@ export default function Register() {
         navigateUrl={navigateLogin}
         errorMessage={errorMessage}
       />
-      <ToastContainer position="middle-center">
-        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">Registration</strong>
-          </Toast.Header>
-          <Toast.Body>{errorMessage}</Toast.Body>
-        </Toast>
-      </ToastContainer>
+      <BaseToast
+        message="Registration was successful! You'll be redirected to the login page."
+        setShow={setShow}
+        show={show}
+      />
     </>
   );
 }
