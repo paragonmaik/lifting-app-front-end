@@ -27,6 +27,7 @@ export default function BaseWorkoutForm({
       <Form.Group className="mb-3" controlId="workoutName">
         <Form.Label>Workout Name</Form.Label>
         <Form.Control
+          required
           defaultValue={workoutDTO?.name}
           type="text"
           placeholder="Enter name"
@@ -43,6 +44,7 @@ export default function BaseWorkoutForm({
       <Form.Group className="mb-3" controlId="durationMins">
         <Form.Label>Workout duration</Form.Label>
         <Form.Control
+          required
           defaultValue={workoutDTO?.durationMins}
           type="number"
           placeholder="Enter estimated duration (in Mins)"

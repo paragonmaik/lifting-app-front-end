@@ -62,6 +62,7 @@ export default function ProfileModal({ profileBtn }: ProfileModalProps) {
             <Form.Group className="mb-3" controlId="height">
               <Form.Label>Height</Form.Label>
               <Form.Control
+                required
                 type="number"
                 placeholder="Enter height (in cm)"
                 defaultValue={profile?.height}
@@ -70,6 +71,7 @@ export default function ProfileModal({ profileBtn }: ProfileModalProps) {
             <Form.Group className="mb-3" controlId="weight">
               <Form.Label>Weight</Form.Label>
               <Form.Control
+                required
                 type="number"
                 placeholder="Enter weight (in kg)"
                 defaultValue={profile?.weight}

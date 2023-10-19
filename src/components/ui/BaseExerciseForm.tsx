@@ -22,6 +22,7 @@ export default function BaseExerciseForm({
         <Form.Group className="mb-3" controlId="exerciseName">
           <Form.Label>Exercise Name</Form.Label>
           <Form.Control
+            required
             defaultValue={exerciseDTO?.name}
             type="text"
             placeholder="Enter name"
@@ -38,6 +39,7 @@ export default function BaseExerciseForm({
         <Form.Group className="mb-3" controlId="sets">
           <Form.Label>Exercise Sets</Form.Label>
           <Form.Control
+            required
             defaultValue={exerciseDTO?.sets}
             type="number"
             placeholder="Enter how many sets"
@@ -46,6 +48,7 @@ export default function BaseExerciseForm({
         <Form.Group className="mb-2" controlId="reps">
           <Form.Label>Exercise Reps</Form.Label>
           <Form.Control
+            required
             defaultValue={exerciseDTO?.reps}
             type="number"
             placeholder="Enter how many reps"
@@ -54,6 +57,7 @@ export default function BaseExerciseForm({
         <Form.Group className="mb-3" controlId="load">
           <Form.Label>Exercise Load</Form.Label>
           <Form.Control
+            required
             defaultValue={exerciseDTO?.load}
             type="number"
             placeholder="Enter load (in kg)"
@@ -69,6 +73,7 @@ export default function BaseExerciseForm({
         <Form.Group className="mb-3" controlId="restSeconds">
           <Form.Label>Exercise Rest Period</Form.Label>
           <Form.Control
+            required
             defaultValue={exerciseDTO?.restSeconds}
             type="number"
             placeholder="Enter rest period (in seconds)"

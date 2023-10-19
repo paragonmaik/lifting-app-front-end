@@ -27,6 +27,7 @@ export default function BaseProgramForm({
       <Form.Group className="mb-3" controlId="programName">
         <Form.Label>Program Name</Form.Label>
         <Form.Control
+          required
           type="text"
           placeholder="Enter name"
           defaultValue={programDTO?.name}
@@ -43,6 +44,7 @@ export default function BaseProgramForm({
       <Form.Group className="mb-3" controlId="durationWeeks">
         <Form.Label>Program duration</Form.Label>
         <Form.Control
+          required
           type="number"
           placeholder="Enter duration (in weeks)"
           defaultValue={programDTO?.durationWeeks}
