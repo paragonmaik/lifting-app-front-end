@@ -92,6 +92,7 @@ export default function WorkoutCard(workout: Workout) {
           <WorkoutModal isAdd={false} workoutDTO={workout} />
         </div>
       </div>
+      <hr className="w-100" />
       <div className="my-3 w-100 d-flex justify-content-around">
         <span>Duration: {workout.durationMins} minutes</span>
         <span>
@@ -99,12 +100,14 @@ export default function WorkoutCard(workout: Workout) {
         </span>
       </div>
       <Button
+        variant="secondary"
         onClick={() => setIsActive(!isActive)}
         aria-controls={`workout-card-${workout.id}`}
         aria-expanded={isActive}
       >
         {`${isActive ? 'Hide' : 'Show'} Exercises`}
       </Button>
+      <hr className="w-100" />
       <Collapse in={isActive}>
         <div id={`workout-card-${workout.id}`}>
           <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -137,15 +140,16 @@ export default function WorkoutCard(workout: Workout) {
               )}
             </Droppable>
           </DragDropContext>
-          <div className="my-2">
-            <ExerciseModal
-              isAdd={true}
-              exerciseOrder={exerciseOrder}
-              workoutId={workout.id}
-            />
-          </div>
         </div>
       </Collapse>
+      <hr className="w-100" />
+      <div className="my-2">
+        <ExerciseModal
+          isAdd={true}
+          exerciseOrder={exerciseOrder}
+          workoutId={workout.id}
+        />
+      </div>
     </div>
   );
 }
