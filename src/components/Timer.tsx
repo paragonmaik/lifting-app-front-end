@@ -1,6 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import useScreenSize from 'hooks/useScreenSize';
 import timerIcon from '../../public/timer-svgrepo-com.svg';
+import btnSound from '../sounds/button-sound.mp3';
+import breakSound from '../sounds/break.mp3';
 import { useEffect, useState } from 'react';
 
 type TimerProps = {
@@ -12,14 +14,18 @@ export default function Timer({ timeInSeconds }: TimerProps) {
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const [intervalId, setIntervalId] = useState(0);
   const [screenSize, _setScreenSize] = useScreenSize();
+  const btnAudio = new Audio(btnSound);
+  const breakAudio = new Audio(breakSound);
 
   useEffect(() => {
     if (time <= 0) {
       stopTimer();
+      breakAudio.play();
     }
   });
 
   function startTimer() {
+    btnAudio.play();
     setIsTimerStarted(!isTimerStarted);
 
     const intervalId = setInterval(() => {
@@ -30,6 +36,7 @@ export default function Timer({ timeInSeconds }: TimerProps) {
   }
 
   function stopTimer() {
+    btnAudio.play();
     setIsTimerStarted(!isTimerStarted);
     clearInterval(intervalId);
     resetTimer();
