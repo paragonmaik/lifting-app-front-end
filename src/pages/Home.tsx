@@ -1,8 +1,7 @@
 import SideBar from 'components/SideBar';
 import useProgram from 'hooks/useProgram';
+import Spinner from 'react-bootstrap/Spinner';
 import MainComponent from 'components/MainComponent';
-import Placeholder from 'react-bootstrap/Placeholder';
-import Card from 'react-bootstrap/Card';
 import { AxiosError } from 'axios';
 
 export default function Home() {
@@ -13,20 +12,9 @@ export default function Home() {
       <SideBar />
       <section className="h-100 w-100 overflow-auto">
         {isLoading ? (
-          <div className="d-flex flex-column">
-            <Placeholder as={Card.Title} animation="glow">
-              <Placeholder xs={6} />
-            </Placeholder>
-            <Placeholder as={Card.Text} animation="glow">
-              <Placeholder xs={7} />
-            </Placeholder>
-            <Placeholder as={Card.Text} animation="glow">
-              <Placeholder xs={7} />
-            </Placeholder>
-            <Placeholder as={Card.Footer} animation="glow">
-              <Placeholder xs={6} />
-            </Placeholder>
-          </div>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         ) : (
           <MainComponent
             isError={isError}
