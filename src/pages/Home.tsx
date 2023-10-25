@@ -1,7 +1,7 @@
 import SideBar from 'components/SideBar';
 import useProgram from 'hooks/useProgram';
-import Spinner from 'react-bootstrap/Spinner';
 import MainComponent from 'components/MainComponent';
+import Loading from 'components/ui/Loading';
 import { AxiosError } from 'axios';
 
 export default function Home() {
@@ -12,9 +12,7 @@ export default function Home() {
       <SideBar />
       <section className="h-100 w-100 overflow-auto">
         {isLoading ? (
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <Loading />
         ) : (
           <MainComponent
             isError={isError}
