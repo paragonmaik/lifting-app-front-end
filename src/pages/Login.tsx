@@ -1,5 +1,6 @@
 import BaseAuthForm from 'components/ui/BaseAuthForm';
 import Button from 'react-bootstrap/Button';
+import Loading from 'components/ui/Loading';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useLocalStorage } from 'hooks/useLocalStorage';
@@ -9,6 +10,7 @@ import { axiosRequest } from 'utils/axiosRequest';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useLocalStorage('token', '');
   const navigate = useNavigate();
   const navigateHome = '/home';
@@ -24,10 +26,12 @@ export default function Login() {
     mutationFn: axiosRequest,
     onSuccess: (response) => {
       setToken(response.data.token);
+      setIsLoading(false);
       navigate(navigateHome);
     },
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
+      setIsLoading(false);
       setErrorMessage(data.message);
     },
   });
@@ -50,6 +54,8 @@ export default function Login() {
         role: 0,
       },
     });
+
+    setIsLoading(true);
   }
 
   function handleDemoLogin() {
@@ -62,6 +68,8 @@ export default function Login() {
         role: 0,
       },
     });
+
+    setIsLoading(true);
   }
 
   return (
@@ -81,6 +89,7 @@ export default function Login() {
         <h3>Demo the App</h3>
         <Button onClick={handleDemoLogin}>Demo</Button>
       </div>
+      {isLoading ? <Loading /> : null}
     </>
   );
 }
