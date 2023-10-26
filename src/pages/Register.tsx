@@ -5,9 +5,11 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import BaseAuthForm from 'components/ui/BaseAuthForm';
 import BaseToast from 'components/ui/BaseToast';
+import Loading from 'components/ui/Loading';
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const navigateLogin = '/login';
@@ -28,12 +30,14 @@ export default function Register() {
     mutationFn: axiosRequest,
     onSuccess: () => {
       setShow(true);
+      setIsLoading(false);
       setInterval(() => {
         navigate(navigateLogin);
       }, 1500);
     },
     onError: (error: AxiosError) => {
       const data: any = error?.response?.data;
+      setIsLoading(false);
       setErrorMessage(data.message);
     },
   });
@@ -60,6 +64,8 @@ export default function Register() {
         role: 0,
       },
     });
+
+    setIsLoading(true);
   }
 
   return (
@@ -76,6 +82,7 @@ export default function Register() {
         show={show}
         delay={1300}
       />
+      {isLoading ? <Loading /> : null}
     </>
   );
 }
