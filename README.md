@@ -1,6 +1,6 @@
 ## Lifting logger app
 
-<p align="center"><img src="" alt="lifting-screenshot" /></p>
+<p align="center"><img src="https://github.com/paragonmaik/lifting-app-front-end/blob/main/public/Screenshot_20231026_163726.png" alt="lifting-screenshot" /></p>
 
 Workout and exercises logging app.
 
@@ -15,6 +15,10 @@ Live demo [lifting-app](https://lifting-app-front-end.vercel.app/)
 ```bash
   npm install
   npm run dev
+```
+or
+```bash
+  docker compose up -d
 ```
 
 ## How to build
